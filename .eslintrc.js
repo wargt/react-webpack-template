@@ -1,6 +1,6 @@
 module.exports = {
-  parser: 'babel-eslint',
-  // "parser": "@typescript-eslint/parser",
+  // parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
     node: true,
@@ -20,7 +20,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    // "@typescript-eslint",
+    '@typescript-eslint',
     'react',
     'react-hooks',
     'eslint-plugin-import',
@@ -32,6 +32,8 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-no-constructed-context-values': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
   settings: {
     'import/resolver': {

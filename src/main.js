@@ -6,6 +6,10 @@ import productsStore from '@/store/products';
 import listStore from '@/store/list';
 import storeContext from './context/store';
 import App from './App';
+import { hello } from './hello.ts';
+
+// eslint-disable-next-line no-console
+console.log(hello('23'));
 
 const store = {
   order: orderStore,
