@@ -3,47 +3,48 @@
 // import Product from '@/components/product/product'
 // import Result from '@/components/result/result'
 // import Form from '@/components/form/form'
-import React from 'react'
-const List = React.lazy(() => import(/* webpackChunkName: "list" */ '@/components/list/list'))
-const Products = React.lazy(() => import(/* webpackChunkName: "products" */ '@/components/products/products'))
-const Product = React.lazy(() => import(/* webpackChunkName: "product" */ '@/components/product/product'))
-const Result = React.lazy(() => import(/* webpackChunkName: "result" */ '@/components/result/result'))
-const Form = React.lazy(() => import(/* webpackChunkName: "form" */ '@/components/form/form'))
+import React from 'react';
+
+const List = React.lazy(() => import(/* webpackChunkName: "list" */ '@/components/list/list'));
+const Products = React.lazy(() => import(/* webpackChunkName: "products" */ '@/components/products/products'));
+const Product = React.lazy(() => import(/* webpackChunkName: "product" */ '@/components/product/product'));
+const Result = React.lazy(() => import(/* webpackChunkName: "result" */ '@/components/result/result'));
+const Form = React.lazy(() => import(/* webpackChunkName: "form" */ '@/components/form/form'));
 
 const routes = [
   {
     name: 'form',
     path: '/form',
-    component: Form
+    component: Form,
   },
   {
     name: 'list',
     path: '/',
-    component: List
+    component: List,
   },
   {
     name: 'result',
     path: '/result',
-    component: Result
+    component: Result,
   },
   {
     name: 'products',
     path: '/products',
-    component: Products
+    component: Products,
   },
   {
     name: 'product',
     path: '/product/:id',
-    component: Product
+    component: Product,
   },
-]
+];
 
 const mapRoutes = routes.reduce((acc, route) => {
   if (route.name) {
-    acc[route.name] = route.path
+    acc[route.name] = route.path;
   }
 
-  return acc
-}, {})
+  return acc;
+}, {});
 
-export { routes, mapRoutes }
+export { routes, mapRoutes };

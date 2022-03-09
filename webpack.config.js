@@ -1,30 +1,40 @@
-const path = require('path')
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-let conf = {
+const conf = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     assetModuleFilename: 'assets/[hash][ext][query]',
     filename: 'main.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: true,
     client: {
       overlay: true,
-    }
+    },
   },
-  plugins: [ new MiniCssExtractPlugin({
-    chunkFilename: 'css/[name].css'
+  plugins: [new MiniCssExtractPlugin({
+    chunkFilename: 'css/[name].css',
   })],
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: '/node_modules/'
+        use: ['babel-loader', 'eslint-loader'],
+        // loader: 'babel-loader',
+        exclude: '/node_modules/',
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+        exclude: /build/,
       },
       { // файлы которые оканчиваются на .m.css
         test: /\.m\.css$/i,
@@ -37,10 +47,10 @@ let conf = {
               modules: {
                 // importLoaders: 1,
                 // modules: true,
-                localIdentName: '[local]__[sha1:hash:hex:7]'
-              }
-            }
-          }
+                localIdentName: '[local]__[sha1:hash:hex:7]',
+              },
+            },
+          },
         ],
       },
       { // файлы которые оканчиваются на .css
@@ -58,39 +68,40 @@ let conf = {
               modules: {
                 // importLoaders: 1,
                 // modules: true,
-                localIdentName: '[local]__[sha1:hash:hex:7]'
-              }
-            }
+                localIdentName: '[local]__[sha1:hash:hex:7]',
+              },
+            },
           },
           {
             loader: 'sass-loader',
             options: {
-              additionalData: `@import "~@/assets/variables.scss";`
-            }
-          }
+              additionalData: '@import "~@/assets/variables.scss";',
+            },
+          },
         ],
       },
-    ]
+    ],
   },
   resolve: {
-    extensions: ['.js', '.json', '.vue', '.css'],
+    extensions: ['.js', '.tsx', '.json', '.vue', '.css'],
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  }
-}
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+};
 
 module.exports = (env, options) => {
-  const isProduction = options.mode === 'production'
-  conf.devtool = isProduction ?  false : 'eval-cheap-module-source-map' // 'source-map' : 'eval-cheap-module-source-map'
-  conf.target = 'browserslist'
+  const isProduction = options.mode === 'production';
+  conf.devtool = isProduction ? false : 'eval-cheap-module-source-map'; // 'source-map' : 'eval-cheap-module-source-map'
+  conf.target = 'browserslist';
 
   conf.plugins.push(
     new HtmlWebpackPlugin({
       template: './index.html',
-      inject: true
-    })
-  )
+      inject: true,
+    }),
+  );
 
-  return conf
-}
+  return conf;
+};

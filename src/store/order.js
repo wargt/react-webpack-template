@@ -1,4 +1,6 @@
-import { makeObservable, action, observable, computed } from 'mobx'
+import {
+  makeObservable, action, observable, computed,
+} from 'mobx';
 
 class OrderStore {
   fields = [
@@ -7,30 +9,30 @@ class OrderStore {
     { label: 'Phone', value: '', name: 'phone' },
   ]
 
-  constructor () {
-    makeObservable(this,{
+  constructor() {
+    makeObservable(this, {
       fields: observable,
       isValid: computed,
       userName: computed,
-      changeValue: action
-    })
+      changeValue: action,
+    });
   }
 
-  get isValid () {
-    return this.fields.every(field => field.value !== '')
+  get isValid() {
+    return this.fields.every((field) => field.value !== '');
   }
 
-  get userName () {
-    return this.fields.find(f => f.name === 'name').value
+  get userName() {
+    return this.fields.find((f) => f.name === 'name').value;
   }
 
-  changeValue (name, value) {
-    const field = this.fields.find(field => field.name === name)
+  changeValue(name, value) {
+    const field = this.fields.find((item) => item.name === name);
 
     if (field) {
-      field.value = value
+      field.value = value;
     }
   }
 }
 
-export default new OrderStore()
+export default new OrderStore();

@@ -1,16 +1,23 @@
-import React from 'react'
-import OrderStore from '@/store/order'
-import ProductsStore from '@/store/products'
-import { observer } from 'mobx-react-lite'
+import React from 'react';
+import OrderStore from '@/store/order';
+import ProductsStore from '@/store/products';
+import { observer } from 'mobx-react-lite';
 
-function Result () {
-  return <div>
-    <h1>Super {OrderStore.userName}</h1>
-
+function Result() {
+  return (
     <div>
-      total {ProductsStore.total}
+      <h1>
+        Super
+        {OrderStore.userName}
+      </h1>
+
+      <div>
+        total
+        {' '}
+        {ProductsStore.total}
+      </div>
     </div>
-  </div>
+  );
 }
 
-export default observer(Result)
+export default observer(Result);
